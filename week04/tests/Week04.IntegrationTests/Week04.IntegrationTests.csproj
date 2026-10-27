@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <ProjectReference Include="../../src/Week04.Api/Week04.Api.csproj" />
+    <None Include="../../src/Week04.Api/appsettings.json" Link="fixtures/appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../src/Week04.Api/appsettings.Development.json" Link="fixtures/appsettings.Development.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../src/Week04.Api/appsettings.Production.json" Link="fixtures/appsettings.Production.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

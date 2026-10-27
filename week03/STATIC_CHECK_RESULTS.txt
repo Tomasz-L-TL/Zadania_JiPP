@@ -1,0 +1,79 @@
+  OK Istnieje week03/src/Week03.Api/Week03.Api.csproj
+  OK Istnieje week03/tests/Week03.IntegrationTests/Week03.IntegrationTests.csproj
+  OK Istnieje week03/src/Week03.Api/Program.cs
+  OK Istnieje week03/src/Week03.Api/Dto/CreateUserRequest.cs
+  OK Istnieje week03/src/Week03.Api/Dto/CreateTaskRequest.cs
+  OK Istnieje week03/src/Week03.Api/Domain/Entities.cs
+  OK Istnieje week03/src/Week03.Api/Contracts/Responses.cs
+  OK Istnieje week03/src/Week03.Api/Services/UserRegistrationService.cs
+  OK Istnieje week03/src/Week03.Api/Repositories/UserRepository.cs
+  OK Istnieje week03/src/Week03.Api/Repositories/TaskRepository.cs
+  OK Istnieje week03/src/Week03.Api/Validation/IRequestValidator.cs
+  OK Istnieje week03/src/Week03.Api/Validation/DataAnnotationsRequestValidator.cs
+  OK Istnieje week03/src/Week03.Api/Validation/ValidationFilter.cs
+  OK Istnieje week03/src/Week03.Api/Endpoints/UserEndpoints.cs
+  OK Istnieje week03/src/Week03.Api/Endpoints/TaskEndpoints.cs
+  OK Istnieje week03/src/Week03.Api/Week03.Api.http
+  OK Istnieje week03/tests/Week03.IntegrationTests/Program.cs
+  OK Istnieje .github/workflows/week03-ci.yml
+  OK Istnieje week03/README.md
+  OK Istnieje week03/TEST_REPORT.md
+  OK Istnieje week03/test.sh
+  OK Istnieje week03/test.ps1
+  OK Istnieje README.md
+  OK Week03.Api.csproj: poprawny XML
+  OK Week03.Api.csproj: net10.0
+  OK Week03.Api.csproj: nullable
+  OK Week03.IntegrationTests.csproj: poprawny XML
+  OK Week03.IntegrationTests.csproj: net10.0
+  OK Week03.IntegrationTests.csproj: nullable
+  OK DTO CreateUserRequest oddzielone od domeny
+  OK DTO CreateTaskRequest oddzielone od domeny
+  OK DTO użytkownika nie ma Id
+  OK DTO użytkownika nie ma właściwości CreatedAtUtc
+  OK DTO user: Required
+  OK DTO user: StringLength
+  OK DTO user: EmailAddress
+  OK DTO user: Range
+  OK DTO user: RegularExpression
+  OK DTO task: Required
+  OK DTO task: Range
+  OK DTO task: StringLength
+  OK Adnotacje mają komunikaty
+  OK UserResponse mapuje domenę
+  OK TaskResponse mapuje domenę
+  OK Walidator używa TryValidateObject
+  OK Walidator zwraca błędy wielu pól
+  OK Klucze błędów są camelCase
+  OK Generyczny filtr IEndpointFilter
+  OK Filtr wywołuje walidator
+  OK Filtr zwraca ValidationProblem
+  OK Filtr odrzuca błędy przed next(context)
+  OK Filtr na users
+  OK Filtr na tasks
+  OK Osobny serwis logiki biznesowej
+  OK Serwis mapuje DTO -> domena
+  OK Repozytorium chroni unikalność loginu
+  OK Repozytorium zapisuje atomowo
+  OK Repozytorium tasks thread-safe
+  OK Duplikat dostaje 409
+  OK Duplikat dostaje ProblemDetails
+  OK Users obsługuje POST, GET i GET/id
+  OK Tasks obsługuje POST, GET i GET/id
+  OK DI rejestruje walidator
+  OK DI rejestruje repozytoria
+  OK DI rejestruje serwis biznesowy
+  OK Mapa endpoints users, tasks
+  OK AddProblemDetails w kontenerze
+  OK Test runner uruchamia serwer
+  OK Test runner kończy serwer
+  OK 60 scenariuszy HTTP
+  OK Test unikalności pod współbieżnym ruchem
+  OK Test walidacji wielu pól
+  OK Testy zweryfikują application/problem+json
+  OK GitHub Actions instaluje .NET 10
+  OK GitHub Actions uruchamia testy
+  OK Skrypty testowe istnieją dla obu systemów
+  OK 5 przykładów HTTP zawiera poprawny JSON
+
+Kontrole statyczne: 77/77 zaliczonych.

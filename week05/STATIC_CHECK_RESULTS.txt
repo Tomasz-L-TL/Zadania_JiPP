@@ -1,0 +1,78 @@
+PASS API project exists
+PASS API startup exists
+PASS Entity exists
+PASS EF Core context exists
+PASS Design-time factory exists
+PASS Migration Up/Down exists
+PASS Migration target model exists
+PASS Migration model snapshot exists
+PASS Contracts exists
+PASS Validation exists
+PASS Endpoints exists
+PASS Example requests exists
+PASS Base config exists
+PASS Dev config exists
+PASS Production config exists
+PASS Launch profile exists
+PASS Test project exists
+PASS Integration tests exists
+PASS PowerShell runner exists
+PASS Bash runner exists
+PASS Week05 README exists
+PASS Week05 verification report exists
+PASS Repo README exists
+PASS Git ignore exists
+PASS CI workflow exists
+PASS dotnet tool manifest exists
+PASS appsettings.json parses as JSON
+PASS appsettings.Production.json parses as JSON
+PASS appsettings.Development.json parses as JSON
+PASS launchSettings.json parses as JSON
+PASS dotnet tool manifest parses as JSON
+PASS Week05.Api.csproj valid XML
+PASS Week05.Api.csproj target net10.0
+PASS Week05.IntegrationTests.csproj valid XML
+PASS Week05.IntegrationTests.csproj target net10.0
+PASS EF Core Sqlite dependency 10.0.0
+PASS EF Core Design dependency 10.0.0
+PASS DbContext exposes DbSet<User>
+PASS Entity includes six public data fields
+PASS Entity has server-only IsAdmin field
+PASS DTO requests cannot set ID or IsAdmin
+PASS Separate POST PUT PATCH request DTOs
+PASS Response DTO does not expose EF entity
+PASS Unique normalized email index
+PASS EF context registered in DI
+PASS Async migration guarded for Development
+PASS POST uses SaveChangesAsync
+PASS 201 CreatedAtRoute points to named GET
+PASS Both GET operations use AsNoTracking
+PASS PUT and PATCH included
+PASS DELETE uses Remove + SaveChangesAsync
+PASS Duplicate email conflict returns 409
+PASS Paging and filtering are performed by database
+PASS Sort fields are explicitly whitelisted
+PASS Pagination metadata is returned
+PASS Input validation checks email, name, age
+PASS Validation returns field errors
+PASS No raw EF entities returned
+PASS Migration creates Users table
+PASS Migration creates unique email index
+PASS Migration has rollback
+PASS Migration designer includes BuildTargetModel
+PASS Model snapshot includes unique index
+PASS Factory supports environment variables
+PASS Create, Update, Delete all call EF SaveChangesAsync
+PASS Unit test runner starts actual dotnet server
+PASS Runner cleans up server and SQLite file
+PASS Runner directly interrogates EF SQLite DB
+PASS Exactly 60 sequential integration scenarios
+PASS Runner returns nonzero if a test fails
+PASS Development configuration includes local connection string
+PASS Production config does not contain connection string
+PASS Production startup migrations disabled
+PASS CI invokes .NET build and tests
+PASS HTTP file contains CRUD requests
+PASS Archive source does not include bin/obj or databases
+
+Static verification: 76/76 checks passed.

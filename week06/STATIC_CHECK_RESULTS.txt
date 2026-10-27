@@ -1,0 +1,112 @@
+PASS File exists: README.md
+PASS File exists: SQL_COMPARISON.md
+PASS File exists: TEST_REPORT.md
+PASS File exists: test.sh
+PASS File exists: test.ps1
+PASS File exists: .config/dotnet-tools.json
+PASS File exists: src/Week06.Api/Week06.Api.csproj
+PASS File exists: src/Week06.Api/Program.cs
+PASS File exists: src/Week06.Api/Domain/Entities.cs
+PASS File exists: src/Week06.Api/Data/AppDbContext.cs
+PASS File exists: src/Week06.Api/Data/AppDbContextFactory.cs
+PASS File exists: src/Week06.Api/Data/Configurations/RelationshipConfiguration.cs
+PASS File exists: src/Week06.Api/Data/Migrations/202610260001_InitialRelations.cs
+PASS File exists: src/Week06.Api/Data/Migrations/202610260001_InitialRelations.Designer.cs
+PASS File exists: src/Week06.Api/Data/Migrations/InitialSchemaModel.cs
+PASS File exists: src/Week06.Api/Data/Migrations/AppDbContextModelSnapshot.cs
+PASS File exists: src/Week06.Api/Contracts/Responses.cs
+PASS File exists: src/Week06.Api/Endpoints/RelationshipEndpoints.cs
+PASS File exists: src/Week06.Api/Queries/UserQueries.cs
+PASS File exists: src/Week06.Api/Seeding/DevelopmentSeeder.cs
+PASS File exists: src/Week06.Api/Week06.Api.http
+PASS File exists: src/Week06.Api/appsettings.json
+PASS File exists: src/Week06.Api/appsettings.Development.json
+PASS File exists: src/Week06.Api/appsettings.Production.json
+PASS File exists: src/Week06.Api/Properties/launchSettings.json
+PASS File exists: tests/Week06.IntegrationTests/Week06.IntegrationTests.csproj
+PASS File exists: tests/Week06.IntegrationTests/Program.cs
+PASS Top-level file: README.md
+PASS Top-level file: .gitignore
+PASS Top-level file: .github/workflows/week06-ci.yml
+PASS Valid JSON: week06/.config/dotnet-tools.json
+PASS Valid JSON: week06/src/Week06.Api/Properties/launchSettings.json
+PASS Valid JSON: week06/src/Week06.Api/appsettings.Development.json
+PASS Valid JSON: week06/src/Week06.Api/appsettings.Production.json
+PASS Valid JSON: week06/src/Week06.Api/appsettings.json
+PASS Project XML: week06/src/Week06.Api/Week06.Api.csproj
+PASS .NET 10 target: week06/src/Week06.Api/Week06.Api.csproj
+PASS Project XML: week06/tests/Week06.IntegrationTests/Week06.IntegrationTests.csproj
+PASS .NET 10 target: week06/tests/Week06.IntegrationTests/Week06.IntegrationTests.csproj
+PASS Project uses EF Core 10 SQLite and Design
+PASS User has Tasks navigation
+PASS TaskItem has User FK and navigation
+PASS TaskItem has Comments navigation
+PASS Comment has TaskItem FK and navigation
+PASS TaskItem and Tag have M:N navigations
+PASS DbContext has 4 DbSets
+PASS DbContext uses Fluent API configurations
+PASS User->TaskItem required FK mapping
+PASS TaskItem->Comment required FK mapping
+PASS M:N UsingEntity configured
+PASS M:N join table explicitly named
+PASS Join relation unique composite PK
+PASS M:N navigations configured
+PASS Index on Tag.Name is unique
+PASS Migration class has correct ID and attributes
+PASS Migration supports Up and Down
+PASS Migration creates table Users
+PASS Migration creates table Tasks
+PASS Migration creates table Comments
+PASS Migration creates table Tags
+PASS Migration creates table TaskTags
+PASS Migration contains FK FK_Tasks_Users_UserId
+PASS Migration contains FK FK_Comments_Tasks_TaskItemId
+PASS Migration contains FK FK_TaskTags_Tasks_TaskItemId
+PASS Migration contains FK FK_TaskTags_Tags_TagId
+PASS Migration contains composite PK
+PASS Migration contains unique tag index
+PASS Migration has frozen schema model
+PASS Migration designer uses frozen schema
+PASS Migration snapshot uses frozen schema
+PASS Queries: Include
+PASS Queries: ThenInclude Comments
+PASS Queries: ThenInclude Tags
+PASS Queries: AsNoTracking
+PASS Queries: AsSplitQuery
+PASS Queries: Select projection
+PASS Queries: SQL translated counts
+PASS Endpoint mapped /users/{id:int}/tasks
+PASS Endpoint mapped /users/{id:int}/details
+PASS Endpoint mapped /users/{id:int}/graph
+PASS Endpoint mapped /users/{id:int}/summary
+PASS Endpoint mapped /tasks/{taskId:int}/tags/{tagId:int}
+PASS Endpoint outputs DTO models; summary projected in query
+PASS Endpoint handles 404
+PASS Endpoint handles 400
+PASS Endpoint assignment is idempotent
+PASS Endpoint persists relation
+PASS Endpoint checks SQLite constraint for race
+PASS Seeder guarded to Development
+PASS Seeder checks existing data
+PASS Seeder has 3 demo tasks
+PASS Seed has 3 demo comments
+PASS Application checks connection string
+PASS Application guards migrations by Development
+PASS Application applies migrations
+PASS Application registers endpoints
+PASS Tests use HTTP client
+PASS Tests start and stop API
+PASS Tests use EF database context
+PASS Tests compare SQL
+PASS Tests check no tracking
+PASS Tests check database constraints
+PASS 48 numbered integration tests
+PASS Test process returns failure code if not all pass
+PASS Production has no credentials
+PASS Production disables seeding and migrations
+PASS Development enables seeding and migrations
+PASS SQL analysis covers split-query limitations
+PASS GitHub workflow invokes .NET build and tests
+PASS No compiled binaries packaged
+
+Static checks: 110/110 PASS

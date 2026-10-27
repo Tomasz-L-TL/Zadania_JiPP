@@ -1,0 +1,102 @@
+PASS Istnieje README.md
+PASS Istnieje .gitignore
+PASS Istnieje .github/workflows/week07-ci.yml
+PASS Istnieje week07/README.md
+PASS Istnieje week07/TEST_REPORT.md
+PASS Istnieje week07/test.sh
+PASS Istnieje week07/test.ps1
+PASS Istnieje week07/src/Week07.Api/Week07.Api.csproj
+PASS Istnieje week07/src/Week07.Api/Program.cs
+PASS Istnieje week07/src/Week07.Api/Auth/JwtSettings.cs
+PASS Istnieje week07/src/Week07.Api/Auth/TokenService.cs
+PASS Istnieje week07/src/Week07.Api/Auth/Policies.cs
+PASS Istnieje week07/src/Week07.Api/Auth/AuthService.cs
+PASS Istnieje week07/src/Week07.Api/Users/StoredUser.cs
+PASS Istnieje week07/src/Week07.Api/Users/InMemoryUserStore.cs
+PASS Istnieje week07/src/Week07.Api/Contracts/AuthRequests.cs
+PASS Istnieje week07/src/Week07.Api/Endpoints/AuthEndpoints.cs
+PASS Istnieje week07/src/Week07.Api/Endpoints/UserEndpoints.cs
+PASS Istnieje week07/src/Week07.Api/appsettings.json
+PASS Istnieje week07/src/Week07.Api/Week07.Api.http
+PASS Istnieje week07/tests/Week07.IntegrationTests/Week07.IntegrationTests.csproj
+PASS Istnieje week07/tests/Week07.IntegrationTests/Program.cs
+PASS csproj XML Week07.Api.csproj
+PASS net10.0 Week07.Api.csproj
+PASS csproj XML Week07.IntegrationTests.csproj
+PASS net10.0 Week07.IntegrationTests.csproj
+PASS JwtBearer NuGet 10.0.0
+PASS ASP.NET Core Identity hasher registered
+PASS Hashed password only in domain model
+PASS Public DTO omits hash
+PASS Secure hash used on registration
+PASS VerifyHashedPassword used on login
+PASS New users registered only as User
+PASS Admin bootstrap allowed only in Development
+PASS Admin email/password required in pair
+PASS Bootstrap admin password hashed
+PASS Atomic user add
+PASS Email keys use OrdinalIgnoreCase
+PASS Atomic delete removes both indexes
+PASS Registration DataAnnotations
+PASS Password min length 12, max 128
+PASS ValidationProblem for invalid registration
+PASS Register returns Created
+PASS Conflict is 409
+PASS Login 401 generic
+PASS JWT created with signing credentials
+PASS JWT is HS256
+PASS JWT claim "sub"
+PASS JWT claim "email"
+PASS JWT claim "role"
+PASS JWT claim "jti"
+PASS JWT includes issuer/audience/expiry
+PASS JWT returns Bearer and expiry
+PASS JWT secret required at startup
+PASS JWT parses only Base64 secret
+PASS JWT demands >=32 secret bytes
+PASS Signing key kid fingerprinted
+PASS JWT issuer validation
+PASS JWT audience validation
+PASS JWT lifetime validation
+PASS JWT signature validation
+PASS JWT alg whitelist
+PASS JWT expiry bounded
+PASS JWT clock skew limited
+PASS JWT previous keys support rotation
+PASS JWT previous key count limited
+PASS JWT duplicate keys rejected
+PASS RoleClaimType matched
+PASS Inbound claims unmapped
+PASS Deleted accounts invalidate JWT
+PASS Authentication middleware precedes authorization
+PASS Public health endpoint
+PASS JWT protected users group
+PASS AdminOnly policy is configured
+PASS GET users guarded AdminOnly
+PASS GET user/id guarded AdminOnly
+PASS DELETE guarded AdminOnly
+PASS Admin cannot delete self
+PASS No token cache on login
+PASS No JWT secret in appsettings
+PASS Jwt issuer audience and expiry in appsettings
+PASS No sample admin creds in production configs
+PASS JSON valid: Properties.launchSettings.example.json
+PASS JSON valid: appsettings.json
+PASS 60 sequential HTTP test scenarios
+PASS Tests issue real HTTP
+PASS Tests start and terminate API subprocess
+PASS Tests generate runtime passwords and secrets
+PASS Tests check token expiry
+PASS Tests cover 401 and 403
+PASS Tests check rotation
+PASS Tests forge tokens for bad issuer/audience/signature
+PASS Tests check absence of password hash
+PASS PowerShell runs .NET tests
+PASS Bash runs .NET tests
+PASS No compiled artifacts in ZIP source
+PASS Workflow includes install .NET 10
+PASS Workflow builds and runs tests
+PASS Bash script syntax
+PASS GitHub Actions YAML parses
+
+Kontrole statyczne: 100/100 zaliczone.

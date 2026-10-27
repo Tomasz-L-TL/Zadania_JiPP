@@ -1,0 +1,27 @@
+@host = http://127.0.0.1:5088
+
+### Liveness
+GET {{host}}/health/live
+
+### Dependency check: local writable directory
+GET {{host}}/health/dependencies
+
+### Generate a correlation ID
+GET {{host}}/api/demo/trace
+
+### Preserve a valid correlation ID
+GET {{host}}/api/demo/trace
+X-Correlation-ID: classroom-demo-123
+
+### Do not log private input content
+POST {{host}}/api/demo/submit?password=SECRET_QUERY_DO_NOT_LOG
+Content-Type: application/json
+X-Correlation-ID: demo-submit-123
+
+{
+  "note": "SECRET_BODY_DO_NOT_LOG"
+}
+
+### Return sanitized HTTP 500 (Development only)
+GET {{host}}/api/demo/fail
+X-Correlation-ID: classroom-fail-123

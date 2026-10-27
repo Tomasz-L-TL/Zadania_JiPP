@@ -1,0 +1,37 @@
+@api = http://localhost:5082
+
+### 1. Uzytkownik istnieje: HTTP 200
+GET {{api}}/users/1
+
+### 1. Nieprawidlowe ID: HTTP 400
+GET {{api}}/users/0
+
+### 1. Brak uzytkownika: HTTP 404
+GET {{api}}/users/999
+
+### 2. Domyslna paginacja
+GET {{api}}/users
+
+### 2. Filtr + druga strona + rozmiar strony
+GET {{api}}/users?search=anna&page=2&pageSize=1
+
+### 2. Bledny zakres: HTTP 400
+GET {{api}}/users?page=0&pageSize=51
+
+### 3. Grupa /tasks
+GET {{api}}/tasks
+
+### 3. Szczegoly zadania
+GET {{api}}/tasks/2
+
+### 5. Wersja 1 — price: number
+GET {{api}}/api/v1/products
+
+### 5. Wersja 2 — price: { amount, currency }
+GET {{api}}/api/v2/products
+
+### 5. Ten sam produkt w roznych kontraktach
+GET {{api}}/api/v1/products/1
+
+###
+GET {{api}}/api/v2/products/1

@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:5084
+
+### Status serwera
+GET {{baseUrl}}/health
+
+### Produkty dodane przez dev seed
+GET {{baseUrl}}/api/products
+
+### Pojedynczy produkt
+GET {{baseUrl}}/api/products/1
+
+### Nieznany produkt (404)
+GET {{baseUrl}}/api/products/999999

@@ -1,0 +1,19 @@
+@base = http://localhost:5086
+
+### Read user + tasks with Include
+GET {{base}}/api/users/1/tasks
+
+### Read three levels with ThenInclude
+GET {{base}}/api/users/1/details
+
+### Read complete graph (Tasks, Comments, Tags)
+GET {{base}}/api/users/1/graph
+
+### Compare with lightweight projection
+GET {{base}}/api/users/1/summary
+
+### Assign tag 3 to task 1 (204), repeat is also 204
+POST {{base}}/api/tasks/1/tags/3
+
+### Missing user yields 404
+GET {{base}}/api/users/999/graph

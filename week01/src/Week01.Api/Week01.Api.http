@@ -1,0 +1,40 @@
+@host = http://localhost:5081
+
+### Exercise 1: HTTP 200, JSON
+GET {{host}}/hello
+
+### Exercise 2: HTTP 200, status / timestampUtc / version
+GET {{host}}/health
+
+### Exercise 3: HTTP 200, public settings only
+GET {{host}}/api/v1/config
+
+### Exercise 4: versioned route group
+GET {{host}}/api/v1/hello
+
+### Exercise 5a: list (HTTP 200)
+GET {{host}}/api/v1/notes
+
+### Exercise 5b: create (HTTP 201 + Location)
+POST {{host}}/api/v1/notes
+Content-Type: application/json
+
+{
+  "title": "Shopping list",
+  "content": "Bread and milk"
+}
+
+### Exercise 5c: validation (HTTP 400)
+POST {{host}}/api/v1/notes
+Content-Type: application/json
+
+{
+  "title": "   ",
+  "content": "bad example"
+}
+
+### Replace GUID with ID returned by POST (HTTP 200)
+GET {{host}}/api/v1/notes/00000000-0000-0000-0000-000000000000
+
+### Replace GUID with ID returned by POST (HTTP 204)
+DELETE {{host}}/api/v1/notes/00000000-0000-0000-0000-000000000000

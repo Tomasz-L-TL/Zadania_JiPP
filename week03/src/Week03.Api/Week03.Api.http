@@ -1,0 +1,62 @@
+@host = http://localhost:5083
+
+### health
+GET {{host}}/health
+
+### utwórz użytkownika
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "login": "student01",
+  "name": "Jan Kowalski",
+  "email": "jan@example.com",
+  "age": 22
+}
+
+### błąd walidacji / 400 / ValidationProblem
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "login": "x",
+  "name": "J",
+  "email": "zly-email",
+  "age": 14
+}
+
+### konflikt / 409 / ProblemDetails po utworzeniu student01
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "login": "STUDENT01",
+  "name": "Adam Test",
+  "email": "adam@example.com",
+  "age": 30
+}
+
+### lista użytkowników
+GET {{host}}/api/users
+
+### utwórz zadanie
+POST {{host}}/api/tasks
+Content-Type: application/json
+
+{
+  "title": "Przygotować API",
+  "description": "Dodać wspólną walidację",
+  "priority": 3
+}
+
+### błędy walidacji również w /api/tasks
+POST {{host}}/api/tasks
+Content-Type: application/json
+
+{
+  "title": "x",
+  "priority": 9
+}
+
+### lista zadań
+GET {{host}}/api/tasks

@@ -1,0 +1,34 @@
+@api = http://localhost:5085
+
+### Create - 201 + Location
+POST {{api}}/users
+Content-Type: application/json
+
+{ "name": "Anna Kowalska", "email": "anna@example.com", "age": 25 }
+
+### Read all - filtering, pagination, sorting
+GET {{api}}/users?search=anna&page=1&pageSize=10&minAge=18&maxAge=60&sortBy=name&sortDir=asc
+
+### Read by id - 200 / 404
+GET {{api}}/users/1
+
+### PUT - full update - 200
+PUT {{api}}/users/1
+Content-Type: application/json
+
+{ "name": "Anna Nowak", "email": "anna.new@example.com", "age": 26 }
+
+### PATCH - partial update - 200
+PATCH {{api}}/users/1
+Content-Type: application/json
+
+{ "age": 27 }
+
+### DELETE - 204 / 404
+DELETE {{api}}/users/1
+
+### Bad input - 400
+POST {{api}}/users
+Content-Type: application/json
+
+{ "name": "", "email": "wrong-email", "age": 5 }

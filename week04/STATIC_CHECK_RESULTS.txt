@@ -1,0 +1,87 @@
+[OK] Plik README.md
+[OK] Plik TEST_REPORT.md
+[OK] Plik .config/dotnet-tools.json
+[OK] Plik src/Week04.Api/Week04.Api.csproj
+[OK] Plik src/Week04.Api/Program.cs
+[OK] Plik src/Week04.Api/Domain/Product.cs
+[OK] Plik src/Week04.Api/Data/ProductsDbContext.cs
+[OK] Plik src/Week04.Api/Data/Configurations/ProductConfiguration.cs
+[OK] Plik src/Week04.Api/Data/ProductsDbContextFactory.cs
+[OK] Plik src/Week04.Api/Data/Migrations/202610250001_InitialCreate.cs
+[OK] Plik src/Week04.Api/Data/Migrations/202610250001_InitialCreate.Designer.cs
+[OK] Plik src/Week04.Api/Data/Migrations/ProductsDbContextModelSnapshot.cs
+[OK] Plik src/Week04.Api/Seeding/DevelopmentDataSeeder.cs
+[OK] Plik src/Week04.Api/appsettings.json
+[OK] Plik src/Week04.Api/appsettings.Development.json
+[OK] Plik src/Week04.Api/appsettings.Production.json
+[OK] Plik src/Week04.Api/Properties/launchSettings.json
+[OK] Plik src/Week04.Api/Week04.Api.http
+[OK] Plik tests/Week04.IntegrationTests/Program.cs
+[OK] Plik tests/Week04.IntegrationTests/Week04.IntegrationTests.csproj
+[OK] Plik test.sh
+[OK] Plik test.ps1
+[OK] JSON poprawny: appsettings.Development.json
+[OK] JSON poprawny: appsettings.Production.json
+[OK] JSON poprawny: appsettings.json
+[OK] JSON poprawny: launchSettings.json
+[OK] JSON poprawny: dotnet-tools.json
+[OK] XML csproj: Week04.IntegrationTests.csproj
+[OK] XML csproj: Week04.Api.csproj
+[OK] .NET 10 target
+[OK] EF Core Sqlite package 10.0.0
+[OK] EF Core Design package 10.0.0
+[OK] DB context występuje
+[OK] DbSet<Product> występuje
+[OK] Konfiguracja DI
+[OK] UseSqlite w runtime
+[OK] Brak wartości połączenia zaszytej w Program.cs
+[OK] Factory do design-time
+[OK] Fabryka korzysta z User Secrets
+[OK] Fabryka korzysta ze zmiennych środowiskowych
+[OK] Encja Product
+[OK] Klucz encji
+[OK] SKU required
+[OK] SKU length
+[OK] Name length
+[OK] Description length
+[OK] Price precision
+[OK] SKU unique
+[OK] OnModelCreating
+[OK] Migracja InitialCreate
+[OK] Migracja Up
+[OK] Migracja Down
+[OK] Migracja tworzy Products
+[OK] Migracja tworzy indeks
+[OK] Migracja ma model docelowy
+[OK] Snapshot modelu
+[OK] Snapshot mapuje precyzję
+[OK] MigrateAsync w starcie dev
+[OK] Seed tylko w dev
+[OK] Seed posiada z góry ustaloną datę
+[OK] Seed trzech produktów
+[OK] Seed nie duplikuje istniejącego SKU
+[OK] SQLite unique index w migracji
+[OK] Środowiska mają osobne appsettings
+[OK] Development ma connection string
+[OK] Development migruje przy starcie
+[OK] Development seeduje przy starcie
+[OK] Production bez connection stringa w pliku
+[OK] Production bez automatycznej migracji
+[OK] Production bez seed
+[OK] Bazowa konfiguracja bez danych połączenia
+[OK] Brak plaintext hasła w produkcyjnym JSON
+[OK] Kontrakt HTTP produktów
+[OK] HTTP GET produktów
+[OK] HTTP GET /:id
+[OK] Testy EF Core rzeczywiście migrują bazę
+[OK] Testy EF Core kontrolują duplikaty
+[OK] Testy EF Core kontrolują środowiska
+[OK] Testy EF Core kontrolują seed
+[OK] Testy EF Core kontrolują produkcję
+[OK] Min. 20 scenariuszy integracyjnych
+[OK] GitHub Actions
+[OK] GitHub Actions uruchamia .NET 10
+[OK] GitHub Actions testuje SQLite
+[OK] GitHub Actions testuje HTTP
+
+Kontrola statyczna: 85/85

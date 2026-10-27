@@ -1,0 +1,106 @@
+PASS  Obecny plik: README.md
+PASS  Obecny plik: .gitignore
+PASS  Obecny plik: .github/workflows/week09-ci.yml
+PASS  Obecny plik: week09/README.md
+PASS  Obecny plik: week09/TEST_REPORT.md
+PASS  Obecny plik: week09/test.sh
+PASS  Obecny plik: week09/test.ps1
+PASS  Obecny plik: week09/tools/static_check.py
+PASS  Obecny plik: week09/src/Week09.Api/Week09.Api.csproj
+PASS  Obecny plik: week09/src/Week09.Api/Program.cs
+PASS  Obecny plik: week09/src/Week09.Api/Contracts/ApiDtos.cs
+PASS  Obecny plik: week09/src/Week09.Api/Contracts/RequestValidation.cs
+PASS  Obecny plik: week09/src/Week09.Api/Data/Week09DbContext.cs
+PASS  Obecny plik: week09/src/Week09.Api/Domain/Entities.cs
+PASS  Obecny plik: week09/src/Week09.Api/Endpoints/AuthEndpoints.cs
+PASS  Obecny plik: week09/src/Week09.Api/Endpoints/NoteEndpoints.cs
+PASS  Obecny plik: week09/src/Week09.Api/Middleware/CorrelationIdMiddleware.cs
+PASS  Obecny plik: week09/src/Week09.Api/Security/JwtTokenService.cs
+PASS  Obecny plik: week09/src/Week09.Api/Week09.Api.http
+PASS  Obecny plik: week09/src/Week09.Api/Properties/launchSettings.json
+PASS  Obecny plik: week09/src/Week09.Api/appsettings.json
+PASS  Obecny plik: week09/src/Week09.Api/appsettings.Development.json
+PASS  Obecny plik: week09/src/Week09.Api/appsettings.Production.json
+PASS  Obecny plik: week09/tests/Week09.IntegrationTests/Week09.IntegrationTests.csproj
+PASS  Obecny plik: week09/tests/Week09.IntegrationTests/TestApiFactory.cs
+PASS  Obecny plik: week09/tests/Week09.IntegrationTests/ApiScenario.cs
+PASS  Obecny plik: week09/tests/Week09.IntegrationTests/IntegrationTests.cs
+PASS  Poprawny XML: week09/src/Week09.Api/Week09.Api.csproj
+PASS  Framework net10.0: week09/src/Week09.Api/Week09.Api.csproj
+PASS  Poprawny XML: week09/tests/Week09.IntegrationTests/Week09.IntegrationTests.csproj
+PASS  Framework net10.0: week09/tests/Week09.IntegrationTests/Week09.IntegrationTests.csproj
+PASS  Poprawny JSON: week09/src/Week09.Api/Properties/launchSettings.json
+PASS  Poprawny JSON: week09/src/Week09.Api/appsettings.json
+PASS  Poprawny JSON: week09/src/Week09.Api/appsettings.Development.json
+PASS  Poprawny JSON: week09/src/Week09.Api/appsettings.Production.json
+PASS  API SDK Web
+PASS  EF Core Sqlite
+PASS  JWT Bearer
+PASS  WebApplicationFactory dependency
+PASS  xUnit package
+PASS  xUnit runner
+PASS  Test SDK
+PASS  Test project reference
+PASS  Public Program for test host
+PASS  Health API
+PASS  JWT signing key externally configured
+PASS  No hard-coded JWT signing key in API Program
+PASS  JWT token validity
+PASS  Authorization enabled
+PASS  Dedicated exception handler
+PASS  Dedicated correlation middleware
+PASS  Test error endpoint only in Testing
+PASS  DbContext EF Core
+PASS  Uniqueness email enforced by database
+PASS  Relation owner->notes
+PASS  HTTP auth registration and login
+PASS  Password hashing and verification
+PASS  Registration returns 201 and conflict 409
+PASS  User input validated
+PASS  Validation returns errors dictionary
+PASS  Data annotations for register
+PASS  Data annotations for notes
+PASS  Notes CRUD methods mapped
+PASS  Notes require authorization
+PASS  Read filters notes by owner
+PASS  Single-record filter includes owner
+PASS  No-tracking reads
+PASS  Admin endpoint guarded by role
+PASS  HTTP 201, 204 and 404 routes implemented
+PASS  Factory inherits WebApplicationFactory
+PASS  Factory creates independent in-memory SQLite
+PASS  Factory opens connection
+PASS  Factory overrides services
+PASS  Factory removes previous configuration
+PASS  Factory cleans up connection
+PASS  Factory overrides environment
+PASS  Factory supplies test-only JWT key
+PASS  Scenario creates new factory + client
+PASS  Scenario authenticates via /auth/login
+PASS  Scenario can promote test-only user
+PASS  Scenario cleans resources
+PASS  Exactly 39 xUnit Fact tests
+PASS  Test methods have unique names
+PASS  Test: Health: 200 + JSON
+PASS  Test: Resource not found: 404
+PASS  Test: POST: 201 + Location
+PASS  Test: POST: 400 + validation
+PASS  Test: Isolated DB factories
+PASS  Test: Auth: ownership read
+PASS  Test: Auth: ownership update
+PASS  Test: Auth: ownership delete
+PASS  Test: Auth: admin
+PASS  Test: Middleware: exception
+PASS  Test: Middleware: correlation
+PASS  Test: CRUD update
+PASS  Test: CRUD delete
+PASS  No real database credentials in production JSON
+PASS  No JWT secret in any API config file
+PASS  CI restores, builds and runs dotnet test
+PASS  CI uploads TRX result
+PASS  Bash test script calls dotnet test
+PASS  PowerShell test script calls dotnet test
+PASS  No compiled artifacts committed
+PASS  All four JSON HTTP examples parse
+
+STATIC CHECKS: 104/104 passed.

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/Week10.Api/Week10.Api.csproj" />
+  <Project Path="tests/Week10.IntegrationTests/Week10.IntegrationTests.csproj" />
+</Solution>

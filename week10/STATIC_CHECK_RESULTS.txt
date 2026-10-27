@@ -1,0 +1,106 @@
+PASS Required file: README.md
+PASS Required file: TEST_REPORT.md
+PASS Required file: test.sh
+PASS Required file: test.ps1
+PASS Required file: Week10.slnx
+PASS Required file: .config/dotnet-tools.json
+PASS Required file: src/Week10.Api/Week10.Api.csproj
+PASS Required file: src/Week10.Api/Program.cs
+PASS Required file: src/Week10.Api/Domain/Entities.cs
+PASS Required file: src/Week10.Api/Contracts/Contracts.cs
+PASS Required file: src/Week10.Api/Data/AppDbContext.cs
+PASS Required file: src/Week10.Api/Data/AppDbContextFactory.cs
+PASS Required file: src/Week10.Api/Data/Migrations/202610260001_InitialCreate.cs
+PASS Required file: src/Week10.Api/Data/Migrations/202610260001_InitialCreate.Designer.cs
+PASS Required file: src/Week10.Api/Data/Migrations/AppDbContextModelSnapshot.cs
+PASS Required file: src/Week10.Api/Endpoints/AuthEndpoints.cs
+PASS Required file: src/Week10.Api/Endpoints/UserEndpoints.cs
+PASS Required file: src/Week10.Api/Endpoints/TaskEndpoints.cs
+PASS Required file: src/Week10.Api/Endpoints/TagEndpoints.cs
+PASS Required file: src/Week10.Api/Endpoints/ReportEndpoints.cs
+PASS Required file: src/Week10.Api/Services/ApiHelpers.cs
+PASS Required file: src/Week10.Api/Services/DevSeeder.cs
+PASS Required file: src/Week10.Api/Security/JwtService.cs
+PASS Required file: src/Week10.Api/appsettings.json
+PASS Required file: src/Week10.Api/appsettings.Development.json
+PASS Required file: src/Week10.Api/appsettings.Production.json
+PASS Required file: src/Week10.Api/Properties/launchSettings.json
+PASS Required file: src/Week10.Api/Week10.Api.http
+PASS Required file: tests/Week10.IntegrationTests/ApiTests.cs
+PASS Required file: tests/Week10.IntegrationTests/ApiFactory.cs
+PASS Required file: tests/Week10.IntegrationTests/Week10.IntegrationTests.csproj
+PASS Valid .csproj XML: Week10.Api.csproj
+PASS net10.0: Week10.Api.csproj
+PASS Valid .csproj XML: Week10.IntegrationTests.csproj
+PASS net10.0: Week10.IntegrationTests.csproj
+PASS Valid JSON: dotnet-tools.json
+PASS Valid JSON: launchSettings.json
+PASS Valid JSON: appsettings.Development.json
+PASS Valid JSON: appsettings.Production.json
+PASS Valid JSON: appsettings.json
+PASS Solution .slnx is XML
+PASS EF Core Sqlite dependency
+PASS JWT bearer dependency
+PASS xunit dependencies
+PASS 3 domain models
+PASS Join entity for many-to-many
+PASS Data context has DbSet entities
+PASS One to many FK
+PASS Many to many composite key
+PASS Unique user and tag indexes
+PASS Foreign keys and cascade in migration
+PASS Migration includes all four tables
+PASS Migration has Up and Down
+PASS Migration target model
+PASS EF model snapshot
+PASS Enum string conversion in snapshot
+PASS Request DTOs have validation
+PASS Separate response DTOs
+PASS Registration and login endpoints
+PASS User create alias /users
+PASS PasswordHasher is used
+PASS JWT token issuance
+PASS JWT configured with key length guard
+PASS JWT validation parameters
+PASS Role-based admin policy
+PASS 401/403 through bearer/policies
+PASS User CRUD endpoints
+PASS Task CRUD endpoints
+PASS Ownership authorization
+PASS Task owner not changeable
+PASS Pagination in CRUD
+PASS SQL filtered read
+PASS Validates task status
+PASS Tag create limited to admin
+PASS Tag change computes add and delete instead of replacing all
+PASS Report by status
+PASS Report by user
+PASS Report top tags
+PASS Report overdue
+PASS Reports admin-only
+PASS Report LINQ aggregates
+PASS Config for error middleware
+PASS Structured logging templates
+PASS No password logged by request middleware
+PASS Development-only DB migration
+PASS Development-only demo seed
+PASS Demo admin needs external credentials
+PASS No password returned in DTO
+PASS 49 or more xUnit Fact test cases
+PASS WebApplicationFactory is used
+PASS SQLite memory database per factory
+PASS Factory overrides DB service
+PASS Test JWT access control
+PASS Test four reports
+PASS Test migration applied
+PASS Test DB isolation
+PASS Production has no connection string
+PASS Production has no signing key
+PASS Production disables migration and seed
+PASS Development applies migration and seed
+PASS No SQLite or binary files included
+PASS CI workflow exists
+PASS CI runs build and xUnit
+PASS bash test script syntax
+
+Static checks: 104/104 passed

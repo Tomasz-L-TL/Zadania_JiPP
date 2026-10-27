@@ -1,0 +1,63 @@
+name: ASP.NET Core - build and test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    name: Discover projects
+    runs-on: ubuntu-latest
+    outputs:
+      weeks: ${{ steps.discover.outputs.weeks }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Find available weeks
+        id: discover
+        shell: bash
+        run: |
+          python3 - <<'PYDISCOVER' >> "$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+          weeks = sorted(
+              d.name.removeprefix('week') for d in Path('.').glob('week[0-9][0-9]')
+              if d.is_dir() and (d / 'test.sh').is_file()
+          )
+          if not weeks:
+              raise SystemExit('No directories named weekXX with a test.sh script were found.')
+          print('weeks=' + json.dumps(weeks))
+          PYDISCOVER
+
+  tests:
+    name: Week ${{ matrix.week }}
+    needs: discover
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        week: ${{ fromJSON(needs.discover.outputs.weeks) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build and test
+        shell: bash
+        run: bash "week${{ matrix.week }}/test.sh"
+
+      - name: Upload Week 09 test results
+        if: always() && matrix.week == '09'
+        uses: actions/upload-artifact@v4
+        with:
+          name: week09-trx
+          path: week09/TestResults/week09.trx
+          if-no-files-found: ignore

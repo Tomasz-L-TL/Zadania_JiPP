@@ -1,0 +1,42 @@
+@host = http://localhost:5087
+
+### 1. Health (publiczny)
+GET {{host}}/health
+
+### 2. Rejestracja (w przykładzie podaj własne silne hasło)
+POST {{host}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "student@example.test",
+  "password": "CHANGEME_UseYourOwnPassword!"
+}
+
+### 3. Logowanie — skopiuj accessToken do @token
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "student@example.test",
+  "password": "CHANGEME_UseYourOwnPassword!"
+}
+
+### 4. Bez autoryzacji: 401
+GET {{host}}/api/users/me
+
+### 5. Po wklejeniu JWT (nie commituj tokenów do repo)
+@token = PLACEHOLDER_NOT_A_REAL_TOKEN
+GET {{host}}/api/users/me
+Authorization: Bearer {{token}}
+
+### 6. Jako User: 403 dla /api/users
+GET {{host}}/api/users
+Authorization: Bearer {{token}}
+
+### 7. Jako Admin (osobny token): 200
+GET {{host}}/api/users
+Authorization: Bearer {{token}}
+
+### 8. Jako Admin: usuń użytkownika (204), nie można usunąć samego siebie
+DELETE {{host}}/api/users/2
+Authorization: Bearer {{token}}

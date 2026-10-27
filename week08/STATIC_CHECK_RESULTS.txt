@@ -1,0 +1,103 @@
+PASS File: week08/src/Week08.Api/Week08.Api.csproj
+PASS File: week08/tests/Week08.IntegrationTests/Week08.IntegrationTests.csproj
+PASS File: week08/src/Week08.Api/Program.cs
+PASS File: week08/src/Week08.Api/Middleware/CorrelationIdMiddleware.cs
+PASS File: week08/src/Week08.Api/Middleware/RequestTimingMiddleware.cs
+PASS File: week08/src/Week08.Api/Middleware/GlobalExceptionMiddleware.cs
+PASS File: week08/src/Week08.Api/Middleware/SafeLogIdentity.cs
+PASS File: week08/src/Week08.Api/Diagnostics/WritableStorageHealthCheck.cs
+PASS File: week08/src/Week08.Api/Diagnostics/HealthResponseWriter.cs
+PASS File: week08/src/Week08.Api/Options/DiagnosticsOptions.cs
+PASS File: week08/src/Week08.Api/Endpoints/DemoEndpoints.cs
+PASS File: week08/tests/Week08.IntegrationTests/Program.cs
+PASS File: .github/workflows/week08-ci.yml
+PASS File: week08/src/Week08.Api/Properties/launchSettings.json
+PASS File: week08/src/Week08.Api/appsettings.json
+PASS File: week08/src/Week08.Api/appsettings.Development.json
+PASS File: week08/src/Week08.Api/Week08.Api.http
+PASS File: week08/test.sh
+PASS File: week08/test.ps1
+PASS File: week08/README.md
+PASS File: week08/TEST_REPORT.md
+PASS File: README.md
+PASS File: .gitignore
+PASS Week08.Api.csproj valid XML
+PASS Week08.Api.csproj net10.0 target
+PASS Week08.Api.csproj nullable enabled
+PASS Week08.Api.csproj implicit usings enabled
+PASS Week08.Api.csproj warnings as errors
+PASS Week08.IntegrationTests.csproj valid XML
+PASS Week08.IntegrationTests.csproj net10.0 target
+PASS Week08.IntegrationTests.csproj nullable enabled
+PASS Week08.IntegrationTests.csproj implicit usings enabled
+PASS Week08.IntegrationTests.csproj warnings as errors
+PASS API uses Web SDK
+PASS Tests are console executable
+PASS Test references API
+PASS No third-party package references
+PASS JSON syntax: appsettings.json
+PASS JSON syntax: appsettings.Development.json
+PASS JSON syntax: launchSettings.json
+PASS Basic JSON logging uses built-in ILogger
+PASS Program wires Correlation middleware
+PASS Program wires Timing middleware
+PASS Program wires GlobalException middleware
+PASS Middleware order correct
+PASS Correlation middleware is custom
+PASS Correlation uses header
+PASS Correlation new ID is generated
+PASS Correlation accepts safely validated input
+PASS Correlation uses logging scope
+PASS Correlation is available to next middlewares
+PASS Timing uses Stopwatch
+PASS Timing logs once inside finally
+PASS Timing has Method, Path, status and latency
+PASS Timing correlates logs
+PASS Timing uses route template rather than raw URL
+PASS Timing never reads request query/body/headers
+PASS Timing has UserId placeholder
+PASS SafeUserID only for authenticated principal
+PASS SafeUserID limits to GUID
+PASS Global exception handler catches Exception
+PASS Global error handler returns ProblemDetails
+PASS Global error handler returns HTTP 500
+PASS Global handler returns correlation and trace
+PASS Global handler logs exception type without object
+PASS Global handler clears response then restores correlation
+PASS Health checks are registered
+PASS Liveness endpoint exists
+PASS Dependency health endpoint exists
+PASS Real dependency probes filesystem
+PASS Temporary dependency probes auto-delete
+PASS Dependency failures report Unhealthy
+PASS Health reports only names and status
+PASS Diagnostics storage directory configurable
+PASS GET trace demo endpoint
+PASS POST private input demo endpoint
+PASS Throwing demo endpoint gated to Development
+PASS Dangerous diagnostic endpoint disabled by default in Production
+PASS Demo fails with secret marker to test log redaction
+PASS Exactly 55 sequential test scenarios
+PASS Integration suite tests true HTTP client
+PASS Integration suite runs process
+PASS Integration suite uses real captured JSON logs
+PASS Integration suite tests 500 without stack trace
+PASS Integration suite tests request content not logged
+PASS Integration suite exercises blocked storage
+PASS Integration suite checks production failure endpoint
+PASS Integration suite checks correlation propagation
+PASS Test runner cleans up processes
+PASS CI tests on .NET 10
+PASS CI checks offline structure
+PASS CI builds tests and API
+PASS CI executes integration suite
+PASS CI workflow includes pull request and push
+PASS PowerShell checks process exit codes
+PASS Bash script syntax
+PASS Readme contains diagnostic narrative
+PASS Readme covers safe log content
+PASS Readme has reference to the original assignments
+PASS Documentation does not claim executed HTTP tests
+PASS No local compiled files packaged
+
+Static validation: 101/101 PASS

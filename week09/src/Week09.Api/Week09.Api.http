@@ -1,0 +1,55 @@
+@api = http://localhost:5089
+@token = REPLACE_WITH_TOKEN_FROM_LOGIN
+
+### Ćwiczenie 1: /health
+GET {{api}}/health
+X-Correlation-ID: example-123
+
+### Ćwiczenie 3: Poprawny POST — 201
+POST {{api}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "student@example.com",
+  "password": "SomeStrongPassword123!"
+}
+
+### Logowanie JWT
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "student@example.com",
+  "password": "SomeStrongPassword123!"
+}
+
+### Utworzenie notatki — 201 + Location
+POST {{api}}/api/notes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Moja notatka",
+  "body": "Przygotowana do testów"
+}
+
+### Niepoprawny POST — 400 ValidationProblem
+POST {{api}}/api/notes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "   ",
+  "body": "Nieprawidłowy tytuł"
+}
+
+### Bez autoryzacji — 401
+GET {{api}}/api/notes
+
+### Moje notatki — 200
+GET {{api}}/api/notes
+Authorization: Bearer {{token}}
+
+### Nieistniejący zasób — 404
+GET {{api}}/api/notes/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{token}}

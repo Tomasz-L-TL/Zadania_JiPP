@@ -1,0 +1,47 @@
+@base = http://localhost:5010
+
+### Health
+GET {{base}}/health
+
+### Register - response: 201
+POST {{base}}/auth/register
+Content-Type: application/json
+
+{"username":"student01","email":"student01@example.test","password":"StrongPassword_123!"}
+
+### Login - copy accessToken into bearer variable
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{"username":"student01","password":"StrongPassword_123!"}
+
+### Get tags (authenticated)
+GET {{base}}/tags
+Authorization: Bearer {{token}}
+
+### Create task
+POST {{base}}/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"title":"Finish the assignment","status":"Todo","description":"Week 10","tagIds":[1]}
+
+### Tasks (paginated)
+GET {{base}}/tasks?page=1&pageSize=10&status=Todo
+Authorization: Bearer {{token}}
+
+### Admin reports
+GET {{base}}/reports/tasks/by-status
+Authorization: Bearer {{adminToken}}
+
+###
+GET {{base}}/reports/tasks/by-user
+Authorization: Bearer {{adminToken}}
+
+###
+GET {{base}}/reports/tags/top?limit=10
+Authorization: Bearer {{adminToken}}
+
+###
+GET {{base}}/reports/tasks/overdue
+Authorization: Bearer {{adminToken}}
