@@ -25,10 +25,15 @@ public static class ReportEndpoints
         group.MapGet("/tags/top", async (AppDbContext db, int limit = 10, CancellationToken ct = default) =>
         {
             if (limit is < 1 or > 100) return ApiHelpers.Bad("limit", "Expected 1..100.");
+            // Apply ordering and pagination in SQL before constructing response DTOs.
+            // Ordering over a positional record constructor is not translatable by EF Core.
             var tags = await db.Tags.AsNoTracking()
-                .Select(x => new TagReportDto(x.Id, x.Name, x.TaskTags.Count))
-                .OrderByDescending(x => x.Count).ThenBy(x => x.TagId).Take(limit).ToListAsync(ct);
-            return Results.Ok(tags);
+                .OrderByDescending(x => x.TaskTags.Count)
+                .ThenBy(x => x.Id)
+                .Take(limit)
+                .Select(x => new { x.Id, x.Name, Count = x.TaskTags.Count })
+                .ToListAsync(ct);
+            return Results.Ok(tags.Select(x => new TagReportDto(x.Id, x.Name, x.Count)).ToArray());
         });
         group.MapGet("/tasks/overdue", async (AppDbContext db, CancellationToken ct) =>
         {

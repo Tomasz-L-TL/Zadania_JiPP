@@ -74,8 +74,8 @@ internal static class InitialSchemaModel
         {
             b.HasMany("Week06.Api.Domain.Tag", "Tags")
                 .WithMany("Tasks")
-                .UsingEntity<Dictionary<string, object>>(
-                    "TaskTag",
+                .UsingEntity(
+                    "TaskTag", typeof(Dictionary<string, object>),
                     r => r.HasOne("Week06.Api.Domain.Tag", null)
                         .WithMany().HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade).IsRequired(),
