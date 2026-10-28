@@ -1,72 +1,98 @@
 using Microsoft.EntityFrameworkCore;
-using Week06.Api.Domain;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Week06.Api.Data.Migrations;
 
-// Immutable snapshot of the INITIAL schema, independent from current runtime configurations.
-// Shared only by the migration designer and its matching snapshot, not by AppDbContext.
+// Persisted migration model: independent from runtime configuration classes.
 internal static class InitialSchemaModel
 {
-    public static void Build(ModelBuilder builder)
+    public static void Build(ModelBuilder modelBuilder)
     {
-        builder.HasAnnotation("ProductVersion", "10.0.0");
+        modelBuilder.HasAnnotation("ProductVersion", "10.0.0");
 
-        builder.Entity<User>(user =>
+        modelBuilder.Entity("Week06.Api.Domain.User", b =>
         {
-            user.ToTable("Users");
-            user.HasKey(x => x.Id);
-            user.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnType("INTEGER")
+            b.Property<int>("Id").ValueGeneratedOnAdd().HasColumnType("INTEGER")
                 .HasAnnotation("Sqlite:Autoincrement", true);
-            user.Property(x => x.Name).IsRequired().HasMaxLength(100).HasColumnType("TEXT");
-            user.HasMany(x => x.Tasks).WithOne(x => x.User)
-                .HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+            b.Property<string>("Name").IsRequired().HasMaxLength(100).HasColumnType("TEXT");
+            b.HasKey("Id");
+            b.ToTable("Users");
         });
 
-        builder.Entity<TaskItem>(task =>
+        modelBuilder.Entity("Week06.Api.Domain.Tag", b =>
         {
-            task.ToTable("Tasks");
-            task.HasKey(x => x.Id);
-            task.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnType("INTEGER")
+            b.Property<int>("Id").ValueGeneratedOnAdd().HasColumnType("INTEGER")
                 .HasAnnotation("Sqlite:Autoincrement", true);
-            task.Property(x => x.UserId).IsRequired().HasColumnType("INTEGER");
-            task.Property(x => x.Title).IsRequired().HasMaxLength(200).HasColumnType("TEXT");
-            task.Property(x => x.IsCompleted).IsRequired().HasColumnType("INTEGER");
-            task.HasIndex(x => x.UserId);
-            task.HasMany(x => x.Comments).WithOne(x => x.TaskItem)
-                .HasForeignKey(x => x.TaskItemId).IsRequired().OnDelete(DeleteBehavior.Cascade);
-            task.HasMany(x => x.Tags).WithMany(x => x.Tasks)
+            b.Property<string>("Name").IsRequired().HasMaxLength(50).HasColumnType("TEXT");
+            b.HasKey("Id");
+            b.HasIndex("Name").IsUnique();
+            b.ToTable("Tags");
+        });
+
+        modelBuilder.Entity("Week06.Api.Domain.TaskItem", b =>
+        {
+            b.Property<int>("Id").ValueGeneratedOnAdd().HasColumnType("INTEGER")
+                .HasAnnotation("Sqlite:Autoincrement", true);
+            b.Property<int>("UserId").HasColumnType("INTEGER");
+            b.Property<string>("Title").IsRequired().HasMaxLength(200).HasColumnType("TEXT");
+            b.Property<bool>("IsCompleted").HasColumnType("INTEGER");
+            b.HasKey("Id");
+            b.HasIndex("UserId");
+            b.ToTable("Tasks");
+        });
+
+        modelBuilder.Entity("Week06.Api.Domain.Comment", b =>
+        {
+            b.Property<int>("Id").ValueGeneratedOnAdd().HasColumnType("INTEGER")
+                .HasAnnotation("Sqlite:Autoincrement", true);
+            b.Property<int>("TaskItemId").HasColumnType("INTEGER");
+            b.Property<string>("Text").IsRequired().HasMaxLength(1000).HasColumnType("TEXT");
+            b.HasKey("Id");
+            b.HasIndex("TaskItemId");
+            b.ToTable("Comments");
+        });
+
+        modelBuilder.Entity("Week06.Api.Domain.Comment", b =>
+        {
+            b.HasOne("Week06.Api.Domain.TaskItem", "TaskItem")
+                .WithMany("Comments")
+                .HasForeignKey("TaskItemId")
+                .OnDelete(DeleteBehavior.Cascade).IsRequired();
+            b.Navigation("TaskItem");
+        });
+
+        modelBuilder.Entity("Week06.Api.Domain.TaskItem", b =>
+        {
+            b.HasOne("Week06.Api.Domain.User", "User")
+                .WithMany("Tasks")
+                .HasForeignKey("UserId")
+                .OnDelete(DeleteBehavior.Cascade).IsRequired();
+            b.Navigation("User");
+        });
+
+        modelBuilder.Entity("Week06.Api.Domain.TaskItem", b =>
+        {
+            b.HasMany("Week06.Api.Domain.Tag", "Tags")
+                .WithMany("Tasks")
                 .UsingEntity<Dictionary<string, object>>(
                     "TaskTag",
-                    r => r.HasOne<Tag>().WithMany().HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade),
-                    l => l.HasOne<TaskItem>().WithMany().HasForeignKey("TaskItemId")
-                        .OnDelete(DeleteBehavior.Cascade),
-                    join =>
+                    r => r.HasOne("Week06.Api.Domain.Tag", null)
+                        .WithMany().HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade).IsRequired(),
+                    l => l.HasOne("Week06.Api.Domain.TaskItem", null)
+                        .WithMany().HasForeignKey("TaskItemId")
+                        .OnDelete(DeleteBehavior.Cascade).IsRequired(),
+                    j =>
                     {
-                        join.ToTable("TaskTags");
-                        join.HasKey("TaskItemId", "TagId");
+                        j.HasKey("TaskItemId", "TagId");
+                        j.ToTable("TaskTags");
+                        j.HasIndex("TagId");
                     });
+            b.Navigation("Comments");
+            b.Navigation("Tags");
         });
 
-        builder.Entity<Comment>(comment =>
-        {
-            comment.ToTable("Comments");
-            comment.HasKey(x => x.Id);
-            comment.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnType("INTEGER")
-                .HasAnnotation("Sqlite:Autoincrement", true);
-            comment.Property(x => x.TaskItemId).IsRequired().HasColumnType("INTEGER");
-            comment.Property(x => x.Text).IsRequired().HasMaxLength(1000).HasColumnType("TEXT");
-            comment.HasIndex(x => x.TaskItemId);
-        });
-
-        builder.Entity<Tag>(tag =>
-        {
-            tag.ToTable("Tags");
-            tag.HasKey(x => x.Id);
-            tag.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnType("INTEGER")
-                .HasAnnotation("Sqlite:Autoincrement", true);
-            tag.Property(x => x.Name).IsRequired().HasMaxLength(50).HasColumnType("TEXT");
-            tag.HasIndex(x => x.Name).IsUnique();
-        });
+        modelBuilder.Entity("Week06.Api.Domain.User", b => b.Navigation("Tasks"));
+        modelBuilder.Entity("Week06.Api.Domain.Tag", b => b.Navigation("Tasks"));
     }
 }

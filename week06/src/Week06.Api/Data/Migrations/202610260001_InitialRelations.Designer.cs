@@ -9,6 +9,5 @@ public partial class InitialRelations
     protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
         InitialSchemaModel.Build(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }

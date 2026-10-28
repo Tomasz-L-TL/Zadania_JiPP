@@ -13,21 +13,24 @@ using Week10.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
-var jwtKey = config["Jwt:SigningKey"];
-if (string.IsNullOrWhiteSpace(jwtKey) || Encoding.UTF8.GetByteCount(jwtKey) < 32)
-    throw new InvalidOperationException("Configure Jwt__SigningKey (at least 32 UTF-8 bytes) through a secret provider.");
-if (string.IsNullOrWhiteSpace(config["Jwt:Issuer"]) || string.IsNullOrWhiteSpace(config["Jwt:Audience"]))
-    throw new InvalidOperationException("Jwt:Issuer and Jwt:Audience must be configured.");
-var connectionString = config.GetConnectionString("AppDb");
-if (string.IsNullOrWhiteSpace(connectionString))
-    throw new InvalidOperationException("Configure ConnectionStrings__AppDb.");
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
+// Read settings from DI after host configuration (including WebApplicationFactory overrides).
+builder.Services.AddDbContext<AppDbContext>((services, options) =>
+{
+    var configuredConnection = services.GetRequiredService<IConfiguration>()
+        .GetConnectionString("AppDb");
+    if (string.IsNullOrWhiteSpace(configuredConnection))
+        throw new InvalidOperationException("Configure ConnectionStrings__AppDb.");
+    options.UseSqlite(configuredConnection);
+});
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddSingleton<JwtService>();
 builder.Services.AddProblemDetails();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
+    var jwtKey = config["Jwt:SigningKey"];
+    if (string.IsNullOrWhiteSpace(jwtKey) || Encoding.UTF8.GetByteCount(jwtKey) < 32)
+        throw new InvalidOperationException("Configure Jwt__SigningKey (at least 32 UTF-8 bytes) through a secret provider.");
     options.MapInboundClaims = false;
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -43,6 +46,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddAuthorizationBuilder().AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
 var app = builder.Build();
 
+// Validate required configuration after ConfigureWebHost has applied test overrides.
+var jwtKey = app.Configuration["Jwt:SigningKey"];
+if (string.IsNullOrWhiteSpace(jwtKey) || Encoding.UTF8.GetByteCount(jwtKey) < 32)
+    throw new InvalidOperationException("Configure Jwt__SigningKey (at least 32 UTF-8 bytes) through a secret provider.");
+if (string.IsNullOrWhiteSpace(app.Configuration["Jwt:Issuer"]) ||
+    string.IsNullOrWhiteSpace(app.Configuration["Jwt:Audience"]))
+    throw new InvalidOperationException("Jwt:Issuer and Jwt:Audience must be configured.");
+if (string.IsNullOrWhiteSpace(app.Configuration.GetConnectionString("AppDb")))
+    throw new InvalidOperationException("Configure ConnectionStrings__AppDb.");
+
 app.UseExceptionHandler();
 // Nie loguj Authorization, Cookie, body ani haseł.
 app.Use(async (context, next) =>
@@ -51,8 +64,13 @@ app.Use(async (context, next) =>
     try { await next(); }
     finally
     {
-        app.Logger.LogInformation("HTTP {Method} {Path} -> {StatusCode} in {ElapsedMs}ms",
-            context.Request.Method, context.Request.Path.Value,
+        // Nie loguj surowej ścieżki żądania, która może zawierać dane wrażliwe.
+        // Wzorzec routingu (np. /tasks/{id:int}) nie ujawnia identyfikatorów.
+        var route = context.GetEndpoint() is Microsoft.AspNetCore.Routing.RouteEndpoint endpoint
+            ? endpoint.RoutePattern.RawText ?? "(unknown-route)"
+            : "(unmatched)";
+        app.Logger.LogInformation("HTTP {Method} {Route} -> {StatusCode} in {ElapsedMs}ms",
+            context.Request.Method, route,
             context.Response.StatusCode, watch.ElapsedMilliseconds);
     }
 });
