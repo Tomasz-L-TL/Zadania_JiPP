@@ -30,10 +30,13 @@ public static class NoteEndpoints
         CancellationToken ct)
     {
         var ownerId = Owner(principal);
-        var result = await db.Notes.AsNoTracking().Where(note => note.OwnerId == ownerId)
-            .OrderBy(note => note.CreatedAtUtc).ThenBy(note => note.Id)
+        var notes = await db.Notes.AsNoTracking()
+            .Where(note => note.OwnerId == ownerId)
             .Select(note => new NoteResponse(note.Id, note.Title, note.Body, note.CreatedAtUtc))
             .ToListAsync(ct);
+
+        var result = notes.OrderBy(note => note.CreatedAtUtc)
+            .ThenBy(note => note.Id).ToList();
         return Results.Ok(result);
     }
 

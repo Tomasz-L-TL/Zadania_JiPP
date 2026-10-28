@@ -13,7 +13,7 @@ public sealed class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbConte
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: true)
             .AddJsonFile($"appsettings.{environment}.json", optional: true)
-            .AddUserSecrets("WWSI-Week10-UsersTasks", optional: true)
+            .AddUserSecrets<AppDbContextFactory>(optional: true)
             .AddEnvironmentVariables()
             .Build();
         var connection = config.GetConnectionString("AppDb");
