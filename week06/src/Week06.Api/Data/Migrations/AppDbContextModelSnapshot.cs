@@ -10,5 +10,8 @@ namespace Week06.Api.Data.Migrations;
 public partial class AppDbContextModelSnapshot : ModelSnapshot
 {
     protected override void BuildModel(ModelBuilder modelBuilder)
-        => InitialSchemaModel.Build(modelBuilder);
+    {
+        InitialSchemaModel.Build(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+    }
 }

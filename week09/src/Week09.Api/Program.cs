@@ -12,21 +12,27 @@ using Week09.Api.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("Default")
-    ?? throw new InvalidOperationException("ConnectionStrings:Default is required.");
-var signingKey = builder.Configuration["Jwt:SigningKey"];
-if (string.IsNullOrWhiteSpace(signingKey) || Encoding.UTF8.GetByteCount(signingKey) < 32)
-    throw new InvalidOperationException("Jwt:SigningKey must be at least 32 bytes. Provide it securely.");
-
-var issuer = builder.Configuration["Jwt:Issuer"] ?? "Week09.Api";
-var audience = builder.Configuration["Jwt:Audience"] ?? "Week09.Client";
-
-builder.Services.AddDbContext<Week09DbContext>(options => options.UseSqlite(connectionString));
+// Konfiguracja EF oraz JWT jest pobierana po zbudowaniu kontenera usług.
+// Dzięki temu WebApplicationFactory może bezpiecznie dostarczyć testową bazę
+// i osobny klucz JWT, bez sekretów w kodzie aplikacji.
+builder.Services.AddDbContext<Week09DbContext>((services, options) =>
+{
+    var configuration = services.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("Default");
+    if (string.IsNullOrWhiteSpace(connectionString))
+        throw new InvalidOperationException("ConnectionStrings:Default is required.");
+    options.UseSqlite(connectionString);
+});
 builder.Services.AddScoped<IPasswordHasher<AppUser>, PasswordHasher<AppUser>>();
 builder.Services.AddSingleton<JwtTokenService>();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+builder.Services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
+    .Configure<IConfiguration>((options, configuration) =>
     {
+        var signingKey = configuration["Jwt:SigningKey"];
+        if (string.IsNullOrWhiteSpace(signingKey) || Encoding.UTF8.GetByteCount(signingKey) < 32)
+            throw new InvalidOperationException("Jwt:SigningKey must be at least 32 bytes. Provide it securely.");
+
         options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -34,8 +40,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateIssuerSigningKey = true,
             ValidateLifetime = true,
-            ValidIssuer = issuer,
-            ValidAudience = audience,
+            ValidIssuer = configuration["Jwt:Issuer"] ?? "Week09.Api",
+            ValidAudience = configuration["Jwt:Audience"] ?? "Week09.Client",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
             NameClaimType = System.Security.Claims.ClaimTypes.NameIdentifier,
             RoleClaimType = System.Security.Claims.ClaimTypes.Role,
@@ -46,6 +52,17 @@ builder.Services.AddAuthorization();
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
+
+// Fail-fast w normalnych środowiskach. WebApplicationFactory udostępnia
+// własną konfigurację podczas startu hosta testowego.
+if (!app.Environment.IsEnvironment("Testing"))
+{
+    if (string.IsNullOrWhiteSpace(app.Configuration.GetConnectionString("Default")))
+        throw new InvalidOperationException("ConnectionStrings:Default is required.");
+    var key = app.Configuration["Jwt:SigningKey"];
+    if (string.IsNullOrWhiteSpace(key) || Encoding.UTF8.GetByteCount(key) < 32)
+        throw new InvalidOperationException("Jwt:SigningKey must be at least 32 bytes. Provide it securely.");
+}
 
 app.UseMiddleware<CorrelationIdMiddleware>();
 app.UseExceptionHandler(errorApp => errorApp.Run(async context =>

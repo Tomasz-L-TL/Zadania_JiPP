@@ -32,6 +32,7 @@ Thumbs.db
 *.sqlite3-shm
 *.sqlite3-wal
 *.log
+github-errors*.txt
 logs/
 week08/**/data/
 
@@ -47,3 +48,7 @@ week08/**/data/
 *.p12
 *.pem
 *.key
+
+# Python local artifacts
+**/__pycache__/
+*.pyc

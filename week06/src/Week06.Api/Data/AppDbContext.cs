@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Week06.Api.Domain;
+using Week06.Api.Data.Migrations;
 
 namespace Week06.Api.Data;
 
@@ -13,6 +14,8 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        // To samo mapowanie bazowe jest używane w snapshotcie migracji.
+        InitialSchemaModel.Build(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }

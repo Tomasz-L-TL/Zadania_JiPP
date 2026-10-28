@@ -10,7 +10,7 @@ var tests = new (string Name, Func<Task> Run)[]
 {
     ("Migracja jest zarejestrowana", async () => await WithDatabase(async db =>
     {
-        var migrations = await db.Database.GetMigrationsAsync();
+        var migrations = db.Database.GetMigrations();
         Check(migrations.Contains("202610250001_InitialCreate"), "Nie znaleziono InitialCreate.");
     }, migrate: false)),
     ("MigrateAsync tworzy bazę i zapisuje historię migracji", () => WithDatabase(async db =>

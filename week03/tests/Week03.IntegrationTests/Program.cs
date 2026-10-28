@@ -159,7 +159,7 @@ try
         Require(await Count("/api/tasks") == 1, "Lista zadań != 1."));
     await Check("42 Brak tytułu zadania -> 400", () => ExpectInvalidTask(new { priority = 2 }, "title"));
     await Check("43 Za krótki tytuł zadania -> 400", () => ExpectInvalidTask(TaskInput("xx", 2), "title"));
-    await Check("44 Za długi tytuł zadania -> 400", () => ExpectInvalidTask(Task(new string('t', 121), 2), "title"));
+    await Check("44 Za długi tytuł zadania -> 400", () => ExpectInvalidTask(TaskInput(new string('t', 121), 2), "title"));
     await Check("45 Brak priorytetu zadania -> 400", () => ExpectInvalidTask(new { title = "Zadanie testowe" }, "priority"));
     await Check("46 Priorytet 0 -> 400", () => ExpectInvalidTask(TaskInput("Zadanie testowe", 0), "priority"));
     await Check("47 Priorytet 6 -> 400", () => ExpectInvalidTask(TaskInput("Zadanie testowe", 6), "priority"));
@@ -185,7 +185,7 @@ try
     });
     await Check("53 Graniczny tytuł 120 znaków -> 201", async () =>
     {
-        using var response = await Post("/api/tasks", Task(new string('t', 120), 1));
+        using var response = await Post("/api/tasks", TaskInput(new string('t', 120), 1));
         Status(response, HttpStatusCode.Created);
     });
     await Check("54 Nieistniejący użytkownik -> 404 + ProblemDetails", () => ExpectNotFound("/api/users/9999"));
