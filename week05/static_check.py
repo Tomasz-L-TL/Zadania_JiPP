@@ -54,7 +54,7 @@ paths = {
     'Week05 verification report': week / 'TEST_REPORT.md',
     'Repo README': root / 'README.md',
     'Git ignore': root / '.gitignore',
-    'CI workflow': root / '.github/workflows/week05-ci.yml',
+    'CI workflow': root / '.github/workflows/ci.yml',
     'dotnet tool manifest': week / '.config/dotnet-tools.json',
 }
 for title, path in paths.items():
@@ -132,7 +132,7 @@ check('Development configuration includes local connection string', 'UsersDb' in
 prod = json.loads(txt(paths['Production config']))
 check('Production config does not contain connection string', 'ConnectionStrings' not in prod)
 check('Production startup migrations disabled', prod.get('Database', {}).get('ApplyMigrationsOnStartup') is False)
-check('CI invokes .NET build and tests', contains(paths['CI workflow'], "10.0.x", 'dotnet build', 'dotnet run', 'Week05.IntegrationTests'))
+check('CI invokes .NET build and tests', contains(paths['CI workflow'], "10.0.x", 'bash "week${{ matrix.week }}/test.sh"') and contains(week/'test.sh', 'dotnet build', 'dotnet run', 'Week05.IntegrationTests'))
 check('HTTP file contains CRUD requests', all(token in txt(paths['Example requests']) for token in ('POST {{api}}/users', 'GET {{api}}/users', 'PUT {{api}}/users', 'PATCH {{api}}/users', 'DELETE {{api}}/users')))
 check('Archive source does not include bin/obj or databases', not any(p.name in ('bin', 'obj') or p.suffix == '.db' for p in root.rglob('*')))
 

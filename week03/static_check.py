@@ -45,7 +45,7 @@ users = SRC / 'Endpoints/UserEndpoints.cs'
 tasks = SRC / 'Endpoints/TaskEndpoints.cs'
 http = SRC / 'Week03.Api.http'
 harness = TEST / 'Program.cs'
-ci = PKG / '.github/workflows/week03-ci.yml'
+ci = PKG / '.github/workflows/ci.yml'
 
 for file in [api_proj, test_proj, program, user_dto, task_dto, domain, responses,
              user_service, user_repo, task_repo, validator_contract, validator,
@@ -109,7 +109,7 @@ check('Test unikalności pod współbieżnym ruchem', has(harness, 'Task.WhenAll
 check('Test walidacji wielu pól', has(harness, 'Cztery błędne pola', 'Wiele błędów w zadaniu'))
 check('Testy zweryfikują application/problem+json', has(harness, 'application/problem+json'))
 check('GitHub Actions instaluje .NET 10', has(ci, '10.0.x', 'actions/setup-dotnet@v4'))
-check('GitHub Actions uruchamia testy', has(ci, 'Week03.IntegrationTests', 'dotnet run --project'))
+check('GitHub Actions uruchamia testy', has(ci, 'bash \"week${{ matrix.week }}/test.sh\"') and has(ROOT/'test.sh', 'Week03.IntegrationTests', 'dotnet run --project'))
 check('Skrypty testowe istnieją dla obu systemów', has(ROOT/'test.ps1','dotnet run') and has(ROOT/'test.sh','dotnet run'))
 
 http_segments = re.split(r'(?m)^###', text(http))

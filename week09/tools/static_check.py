@@ -29,7 +29,7 @@ def has(rel: str, *fragments: str) -> bool:
 
 
 required = [
-    'README.md', '.gitignore', '.github/workflows/week09-ci.yml',
+    'README.md', '.gitignore', '.github/workflows/ci.yml',
     'week09/README.md', 'week09/TEST_REPORT.md', 'week09/test.sh',
     'week09/test.ps1', 'week09/tools/static_check.py',
     'week09/src/Week09.Api/Week09.Api.csproj',
@@ -153,8 +153,8 @@ for fragment, name in [
 
 check('No real database credentials in production JSON', 'ConnectionStrings' not in body('week09/src/Week09.Api/appsettings.Production.json'))
 check('No JWT secret in any API config file', all('SigningKey' not in body(r) for r in required if r.startswith('week09/src') and r.endswith('.json')))
-check('CI restores, builds and runs dotnet test', has('.github/workflows/week09-ci.yml', 'dotnet restore', 'dotnet build', 'dotnet test'))
-check('CI uploads TRX result', has('.github/workflows/week09-ci.yml', 'actions/upload-artifact@v4', 'week09.trx'))
+check('CI restores, builds and runs dotnet test', has('.github/workflows/ci.yml', 'bash \"week${{ matrix.week }}/test.sh\"') and has('week09/test.sh', 'dotnet restore', 'dotnet test'))
+check('CI uploads TRX result', has('.github/workflows/ci.yml', 'actions/upload-artifact@v4', 'week09.trx'))
 check('Bash test script calls dotnet test', has('week09/test.sh', 'dotnet test'))
 check('PowerShell test script calls dotnet test', has('week09/test.ps1', 'dotnet test'))
 check('No compiled artifacts committed', not any(p.name in ('bin', 'obj', '.env') for p in ROOT.rglob('*')))

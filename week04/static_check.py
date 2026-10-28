@@ -133,13 +133,13 @@ check("Testy EF Core kontrolują seed", "DevelopmentDataSeeder.SeedAsync" in tes
 check("Testy EF Core kontrolują produkcję", 'ReadConfig("appsettings.Production.json")' in tests)
 check("Min. 20 scenariuszy integracyjnych", len(re.findall(r'^    \("', tests, re.M)) >= 20)
 
-workflow = root.parent / ".github/workflows/week04-ci.yml"
+workflow = root.parent / ".github/workflows/ci.yml"
 check("GitHub Actions", workflow.exists())
 if workflow.exists():
     wf = workflow.read_text(encoding="utf-8")
     check("GitHub Actions uruchamia .NET 10", "dotnet-version: '10.0.x'" in wf)
-    check("GitHub Actions testuje SQLite", "Week04.IntegrationTests" in wf)
-    check("GitHub Actions testuje HTTP", "http://127.0.0.1:5084/api/products" in wf)
+    check("GitHub Actions testuje SQLite", "bash \"week${{ matrix.week }}/test.sh\"" in wf and "Week04.IntegrationTests" in content("test.sh"))
+    check("GitHub Actions testuje HTTP", "http://127.0.0.1:$port/api/products" in content("test.sh"))
 
 passed = sum(ok for _, ok in checks)
 print(f"\nKontrola statyczna: {passed}/{len(checks)}")

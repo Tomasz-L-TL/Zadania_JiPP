@@ -41,7 +41,7 @@ health_response = api / "Diagnostics" / "HealthResponseWriter.cs"
 options = api / "Options" / "DiagnosticsOptions.cs"
 endpoints = api / "Endpoints" / "DemoEndpoints.cs"
 runner = tests / "Program.cs"
-workflow = repo / ".github" / "workflows" / "week08-ci.yml"
+workflow = repo / ".github" / "workflows" / "ci.yml"
 necessary = [app_proj, test_proj, program, correlation, timing, exceptions, identity,
              health, health_response, options, endpoints, runner, workflow,
              api / "Properties" / "launchSettings.json", api / "appsettings.json",
@@ -127,9 +127,9 @@ check("Integration suite checks production failure endpoint", has(runner, '"Prod
 check("Integration suite checks correlation propagation", has(runner, "X-Correlation-ID", "ProblemDetails"))
 check("Test runner cleans up processes", has(runner, "Kill(entireProcessTree: true)", "WaitForExitAsync()"))
 check("CI tests on .NET 10", has(workflow, "10.0.x", "actions/setup-dotnet@v4"))
-check("CI checks offline structure", "python3 week08/static_check.py" in src(workflow))
-check("CI builds tests and API", "dotnet build week08/tests/Week08.IntegrationTests" in src(workflow))
-check("CI executes integration suite", "dotnet run --project week08/tests/Week08.IntegrationTests" in src(workflow))
+check("CI checks offline structure", "bash \"week${{ matrix.week }}/test.sh\"" in src(workflow) and "python3 week08/static_check.py" in src(root / "test.sh"))
+check("CI builds tests and API", "dotnet build week08/tests/Week08.IntegrationTests" in src(root / "test.sh"))
+check("CI executes integration suite", "dotnet run --project week08/tests/Week08.IntegrationTests" in src(root / "test.sh"))
 check("CI workflow includes pull request and push", has(workflow, "pull_request:", "push:"))
 check("PowerShell checks process exit codes", "$LASTEXITCODE -ne 0" in src(root / "test.ps1"))
 check("Bash script syntax", subprocess.run(["bash", "-n", str(root / "test.sh")], capture_output=True).returncode == 0)

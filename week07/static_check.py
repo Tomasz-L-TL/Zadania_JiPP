@@ -29,7 +29,7 @@ def has(rel: str, *fragments: str) -> bool:
 
 
 paths = [
-    'README.md', '.gitignore', '.github/workflows/week07-ci.yml',
+    'README.md', '.gitignore', '.github/workflows/ci.yml',
     'week07/README.md', 'week07/TEST_REPORT.md', 'week07/test.sh', 'week07/test.ps1',
     'week07/src/Week07.Api/Week07.Api.csproj',
     'week07/src/Week07.Api/Program.cs',
@@ -69,7 +69,7 @@ contracts = 'week07/src/Week07.Api/Contracts/AuthRequests.cs'
 authend = 'week07/src/Week07.Api/Endpoints/AuthEndpoints.cs'
 userend = 'week07/src/Week07.Api/Endpoints/UserEndpoints.cs'
 tests = 'week07/tests/Week07.IntegrationTests/Program.cs'
-ci = '.github/workflows/week07-ci.yml'
+ci = '.github/workflows/ci.yml'
 
 check('JwtBearer NuGet 10.0.0', has(project, 'Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0"'))
 check('ASP.NET Core Identity hasher registered', has(program, 'IPasswordHasher<StoredUser>', 'PasswordHasher<StoredUser>'))
@@ -150,7 +150,7 @@ check('PowerShell runs .NET tests', has('week07/test.ps1', 'dotnet run --project
 check('Bash runs .NET tests', has('week07/test.sh', 'dotnet run --project'))
 check('No compiled artifacts in ZIP source', not any(p.name in {'bin','obj'} for p in root.rglob('*')))
 check('Workflow includes install .NET 10', has(ci, '10.0.x', 'actions/setup-dotnet@v4'))
-check('Workflow builds and runs tests', has(ci, 'dotnet build week07/src/', 'dotnet build week07/tests/', 'dotnet run --project week07/tests/'))
+check('Workflow builds and runs tests', has(ci, 'bash \"week${{ matrix.week }}/test.sh\"') and has('week07/test.sh', 'dotnet build week07/src/', 'dotnet build week07/tests/', 'dotnet run --project week07/tests/'))
 
 if Path('/bin/bash').exists():
     check('Bash script syntax', subprocess.run(['bash', '-n', str(root/'test.sh')], capture_output=True).returncode == 0)

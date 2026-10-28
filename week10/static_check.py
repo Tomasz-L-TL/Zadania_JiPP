@@ -152,8 +152,8 @@ except (ValueError, KeyError) as error:
     check('Appsettings configuration is valid', False)
 
 check('No SQLite or binary files included', not any(p.is_file() and p.suffix.lower() in ('.db', '.sqlite', '.dll', '.exe') for p in repo.rglob('*')))
-check('CI workflow exists', (repo/'.github/workflows/week10-ci.yml').is_file())
-check('CI runs build and xUnit', all(x in (repo/'.github/workflows/week10-ci.yml').read_text() for x in ('dotnet build', 'dotnet test', '10.0.x')))
+check('CI workflow exists', (repo/'.github/workflows/ci.yml').is_file())
+check('CI runs build and xUnit', '10.0.x' in (repo/'.github/workflows/ci.yml').read_text() and 'bash \"week${{ matrix.week }}/test.sh\"' in (repo/'.github/workflows/ci.yml').read_text() and all(x in (root/'test.sh').read_text() for x in ('dotnet build', 'dotnet test')))
 check('bash test script syntax', subprocess.run(['bash', '-n', str(root/'test.sh')], capture_output=True).returncode == 0)
 
 for description, ok in checks:

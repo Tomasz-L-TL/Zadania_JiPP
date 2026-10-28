@@ -45,7 +45,7 @@ files = [
 ]
 for f in files:
     check('File exists: ' + f, (root / f).is_file() and (root / f).stat().st_size > 0)
-for f in ['README.md', '.gitignore', '.github/workflows/week06-ci.yml']:
+for f in ['README.md', '.gitignore', '.github/workflows/ci.yml']:
     check('Top-level file: ' + f, (package / f).is_file())
 
 for f in sorted(package.rglob('*.json')):
@@ -143,7 +143,7 @@ check('Production has no credentials', 'ConnectionStrings' not in get('src/Week0
 check('Production disables seeding and migrations', not any(json.loads(get('src/Week06.Api/appsettings.Production.json'))['Database'].values()))
 check('Development enables seeding and migrations', all(json.loads(get('src/Week06.Api/appsettings.Development.json'))['Database'].values()))
 check('SQL analysis covers split-query limitations', has_all(get('SQL_COMPARISON.md'),['AsSplitQuery','ToQueryString','Count','AsNoTracking']))
-check('GitHub workflow invokes .NET build and tests', has_all((package/'.github/workflows/week06-ci.yml').read_text(), ['dotnet-version: \'10.0.x\'','dotnet build','dotnet run']))
+check('GitHub workflow invokes .NET build and tests', has_all((package/'.github/workflows/ci.yml').read_text(), ['dotnet-version: \'10.0.x\'', 'bash \"week${{ matrix.week }}/test.sh\"']) and has_all(get('test.sh'), ['dotnet build', 'dotnet run']))
 check('No compiled binaries packaged', not any(p.name in ('bin','obj') for p in root.rglob('*')))
 
 passed=sum(ok for _,ok in results)
